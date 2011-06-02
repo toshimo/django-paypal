@@ -308,5 +308,5 @@ class PayPalStandardBase(Model):
         raise NotImplementedError
         
     def _verify_postback(self):
-        """Check self.response is valid andcall self.set_flag if there is an error."""
+        """Check self.response is valid and call self.set_flag if there is an error."""
         raise NotImplementedError

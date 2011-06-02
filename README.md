@@ -77,6 +77,28 @@ Using PayPal Payments Standard IPN:
             (r'^something/hard/to/guess/', include('paypal.standard.ipn.urls')),
         )
 
+1.  While the above will tell you that PayPal accepted *some* payment, 
+    you *must* check the data in the `ipn_object` posted from PayPal, as the 
+    user may change the values in your form before submitting to PayPal.  
+    To do this, create a function which takes the `ipn_object` and validates 
+    that the values passed back match the expected values:
+    
+        def validate_ipn( ipn_object ):
+            invoice = get_invoice( ipn_object.invoice )
+            if not invoice.matches( ipn_object ):
+                return [True,"Reason"]
+            return [False,None]
+    
+        urlpatterns = patterns('',
+            url(
+                r'^something/hard/to/guess/', 
+                include('paypal.standard.ipn.urls'),
+                {
+                    'item_check_callable': validate_ipn,
+                }
+            ),
+        )
+        
 1.  Whenever an IPN is processed a signal will be sent with the result of the 
     transaction. Connect the signals to actions to perform the needed operations
     when a successful payment is recieved.
