@@ -286,7 +286,7 @@ apps.
   *Profile*, *Request API credentials*, *Set up PayPal API credentials and
   permissions*, *View API Signature*.
 
-2. Edit `settings.py` and add  `paypal.standard` and `paypal.pro` to your 
+1. Edit `settings.py` and add  `paypal.standard` and `paypal.pro` to your 
    `INSTALLED_APPS` and put in your PayPal Pro API credentials.
 
         # settings.py
@@ -297,9 +297,9 @@ apps.
         PAYPAL_WPP_PASSWORD = "???"
         PAYPAL_WPP_SIGNATURE = "???"
 
-3. Run `python manage.py syncdb` to add the required tables.
+1. Run `python manage.py syncdb` to add the required tables.
 
-4. Write a wrapper view for `paypal.pro.views.PayPalPro`:
+1. Write a wrapper view for `paypal.pro.views.PayPalPro`:
 
         # views.py
         from paypal.pro.views import PayPalPro
@@ -320,7 +320,7 @@ apps.
           return ppp(request)
 
 
-5. Create templates for payment and confirmation. By default both templates are 
+1. Create templates for payment and confirmation. By default both templates are 
    populated with the context variable `form` which contains either a 
    `PaymentForm` or a `Confirmation` form.
 
@@ -338,7 +338,7 @@ apps.
           <input type="submit" value="Yes I Yams">
         </form>
 
-6. Add your view to `urls.py`, and add the IPN endpoint to receive callbacks 
+1. Add your view to `urls.py`, and add the IPN endpoint to receive callbacks 
    from PayPal:
 
         # urls.py
@@ -349,12 +349,12 @@ apps.
             (r'^some/obscure/name/', include('paypal.standard.ipn.urls')),
         )
 
-7. Connect to the provided signals and have them do something useful:
+1. Connect to the provided signals and have them do something useful:
     - `payment_was_successful` 
     - `payment_was_flagged`
 
 
-8. Profit.
+1. Profit.
 
 
 Links:
@@ -362,9 +362,8 @@ Links:
 
 1. [Set your IPN Endpoint on the PayPal Sandbox](https://www.sandbox.paypal.com/us/cgi-bin/webscr?cmd=_profile-ipn-notify)
 
-2. [Django PayPal on Google Groups](http://groups.google.com/group/django-paypal)
-
-3. [PayPal API Reference](https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/howto_api_reference)
+1. [Django PayPal on Google Groups](http://groups.google.com/group/django-paypal)
+1. [PayPal API Reference](https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/howto_api_reference)
 
 License (MIT)
 =============
